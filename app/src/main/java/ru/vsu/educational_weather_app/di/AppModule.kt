@@ -8,7 +8,5 @@ import ru.vsu.educational_weather_app.features.weather.view.MainWeatherVM
 
 val appModule = module {
     viewModelOf(::MainWeatherVM)
-    viewModel {
-        SettingsVM(get())
-    }
+    viewModelOf(::SettingsVM)
 }
