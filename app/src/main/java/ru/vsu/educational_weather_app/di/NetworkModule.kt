@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.vsu.educational_weather_app.BASE_URL_GET
+import ru.vsu.educational_weather_app.BASE_URL
 import ru.vsu.educational_weather_app.data.interceptor.TokenInterceptor
 import ru.vsu.educational_weather_app.features.weather.data.WeatherService
 import java.util.concurrent.TimeUnit
@@ -28,7 +28,7 @@ fun provideRetrofit(
     okHttpClient: OkHttpClient,
     gsonConverterFactory: GsonConverterFactory
 ): Retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL_GET)
+    .baseUrl(BASE_URL)
     .client(okHttpClient)
     .addConverterFactory(gsonConverterFactory)
     .build()
