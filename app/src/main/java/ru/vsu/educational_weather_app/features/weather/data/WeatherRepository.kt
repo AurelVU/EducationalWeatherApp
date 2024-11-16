@@ -8,7 +8,7 @@ interface WeatherRepository {
 
 class WeatherRepositoryImpl(private val service: WeatherService): WeatherRepository {
     override suspend fun getCurrentWeather(cityName: String): Weather {
-        val body = service.weatherByCity(cityName).body()!!
+        val body = service.weatherByCity(cityName, "ru").body()!!
         return body
     }
 }

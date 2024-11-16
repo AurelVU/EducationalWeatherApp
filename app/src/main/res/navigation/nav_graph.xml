@@ -21,6 +21,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.vsu.educational_weather_app.features.settings.view.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

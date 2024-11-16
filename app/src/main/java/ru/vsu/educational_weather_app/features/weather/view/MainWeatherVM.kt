@@ -10,7 +10,7 @@ import ru.vsu.educational_weather_app.features.weather.models.Weather
 
 class MainWeatherVM(private val repository: WeatherRepository): ViewModel() {
     val weatherState = MutableStateFlow<Weather?>(null)
-    val cityState = MutableStateFlow<String>("Voronezh")
+    val cityState = MutableStateFlow<String>("Воронеж")
 
     fun updateWeather() {
         viewModelScope.launch {

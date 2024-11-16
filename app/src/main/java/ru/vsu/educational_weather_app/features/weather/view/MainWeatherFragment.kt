@@ -22,6 +22,7 @@ class MainWeatherFragment : Fragment() {
     private lateinit var cityTextView: TextView
     private lateinit var temperatureTextView: TextView
     private lateinit var conditionTextView: TextView
+    private lateinit var dateTextView: TextView
     private lateinit var weatherImage: ImageView
     private lateinit var menuButton: ImageButton
 
@@ -36,6 +37,7 @@ class MainWeatherFragment : Fragment() {
         conditionTextView = view.findViewById(R.id.fragment_main_weather__row_text_weather)
         weatherImage = view.findViewById(R.id.fragment_main_weather__row_image)
         menuButton = view.findViewById(R.id.fragment_main_weather__header_menu)
+        dateTextView = view.findViewById(R.id.fragment_main_weather__title_date)
 
         menuButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainWeatherFragment_to_settingsFragment)
@@ -52,7 +54,8 @@ class MainWeatherFragment : Fragment() {
                 launch {
                     vm.weatherState.collect {
                         temperatureTextView.text = it?.current?.tempC?.toInt().toString()
-                        conditionTextView.text = it?.current?.condition?.text
+                        conditionTextView.text = it?.current?.condition?.text?.replace(' ', '\n')
+                        dateTextView.text = it?.current?.lastUpdated
 
                         when (it?.current?.condition?.code) {
                             1000 -> {

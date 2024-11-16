@@ -7,5 +7,5 @@ import ru.vsu.educational_weather_app.features.weather.models.Weather
 
 interface WeatherService {
     @GET("v1/current.json")
-    suspend fun weatherByCity(@Query("q") city: String): Response<Weather>
+    suspend fun weatherByCity(@Query("q") city: String, @Query("lang") lang: String): Response<Weather>
 }
