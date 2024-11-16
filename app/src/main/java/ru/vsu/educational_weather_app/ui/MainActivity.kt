@@ -1,5 +1,5 @@
 package ru.vsu.educational_weather_app.ui
-
+// не очень понятно, почему папка ui отдельно. лучше features/app
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity

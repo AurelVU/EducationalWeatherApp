@@ -40,6 +40,7 @@ android {
         debug {
             isMinifyEnabled = false
             val projectProperties = Properties().apply {
+                // лучше файл сразу добавить с замоканным значением
                 file("../api.properties").inputStream().use { fis ->
                     load(fis)
                 }

@@ -32,6 +32,7 @@ class MainWeatherFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main_weather, container, false)
 
+        // а что ты биндинги не стал юзать?
         cityTextView = view.findViewById(R.id.fragment_main_weather__title_city)
         temperatureTextView = view.findViewById(R.id.fragment_main_weather__row_temperature)
         conditionTextView = view.findViewById(R.id.fragment_main_weather__row_text_weather)
@@ -45,6 +46,8 @@ class MainWeatherFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // в продолжение  флоу/лайв-дата - если тут будет вторая, будет более карсиво
+                // сейчас смотрится страшновато)
                 launch {
                     vm.cityState.collect {
                         cityTextView.text = it

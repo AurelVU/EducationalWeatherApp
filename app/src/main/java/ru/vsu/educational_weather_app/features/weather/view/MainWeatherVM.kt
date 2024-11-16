@@ -9,6 +9,7 @@ import ru.vsu.educational_weather_app.features.weather.data.WeatherRepository
 import ru.vsu.educational_weather_app.features.weather.models.Weather
 
 class MainWeatherVM(private val repository: WeatherRepository): ViewModel() {
+    // flow кайф дружить с компоуз, а вот с view лучше LiveData
     val weatherState = MutableStateFlow<Weather?>(null)
     val cityState = MutableStateFlow<String>("Воронеж")
 
