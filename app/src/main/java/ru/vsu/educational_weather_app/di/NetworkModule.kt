@@ -18,11 +18,9 @@ fun provideHttpClient(): OkHttpClient = OkHttpClient
     .addInterceptor(TokenInterceptor())
     .build()
 
-
 fun provideConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(
     GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 )
-
 
 fun provideRetrofit(
     okHttpClient: OkHttpClient,
