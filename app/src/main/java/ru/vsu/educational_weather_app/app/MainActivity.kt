@@ -1,4 +1,4 @@
-package ru.vsu.educational_weather_app.ui
+package ru.vsu.educational_weather_app.app
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -1,6 +1,7 @@
 package ru.vsu.educational_weather_app
 
 import android.app.Application
+import android.security.NetworkSecurityPolicy
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
