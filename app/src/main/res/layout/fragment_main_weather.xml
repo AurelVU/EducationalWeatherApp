@@ -85,58 +85,65 @@
         android:src="@drawable/cloud_with_sun_and_rain"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@id/fragment_main_weather__title_barrier"
-        app:layout_constraintRight_toLeftOf="@id/fragment_main_weather__row_temperature"
+        app:layout_constraintRight_toLeftOf="@id/fragment_main_weather__row_temperature_block"
         app:layout_constraintLeft_toLeftOf="parent"
         android:adjustViewBounds="true"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintHorizontal_chainStyle="packed"
         />
 
-
-    <TextView
-        android:id="@+id/fragment_main_weather__row_temperature"
+    <LinearLayout
+        android:id="@+id/fragment_main_weather__row_temperature_block"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintLeft_toRightOf="@id/fragment_main_weather__row_image"
-        app:layout_constraintTop_toTopOf="@id/fragment_main_weather__row_image"
-        app:layout_constraintBottom_toTopOf="@id/fragment_main_weather__row_text_weather"
-        app:layout_constraintRight_toRightOf="@id/fragment_main_weather__row_gradus"
-        android:textStyle="bold"
-        android:textSize="72sp"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:text="19"
-        />
-    <TextView
-        android:id="@+id/fragment_main_weather__row_text_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/fragment_main_weather__row_temperature"
-        app:layout_constraintBottom_toBottomOf="@id/fragment_main_weather__row_image"
-        app:layout_constraintLeft_toLeftOf="@id/fragment_main_weather__row_temperature"
-        app:layout_constraintRight_toRightOf="@id/fragment_main_weather__row_temperature"
-        android:textSize="28sp"
-        android:text="Rainy"
-        />
-    <TextView
-        android:id="@+id/fragment_main_weather__row_gradus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/fragment_main_weather__row_temperature"
-        app:layout_constraintTop_toTopOf="@id/fragment_main_weather__row_temperature"
-        app:layout_constraintRight_toLeftOf="@id/fragment_main_weather__row_celcyi"
-        android:textSize="28sp"
-        android:text="°"
-        />
-    <TextView
-        android:id="@+id/fragment_main_weather__row_celcyi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:text="C"
-        app:layout_constraintLeft_toRightOf="@id/fragment_main_weather__row_gradus"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fragment_main_weather__row_gradus"
-        />
+        app:layout_constraintTop_toTopOf="@id/fragment_main_weather__row_image"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_main_weather__row_image"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fragment_main_weather__row_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19"
+                android:textSize="72sp"
+                android:textStyle="bold"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/fragment_main_weather__row_gradus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/fragment_main_weather__row_celcyi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textSize="28sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/fragment_main_weather__row_text_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="Rainy"
+            />
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

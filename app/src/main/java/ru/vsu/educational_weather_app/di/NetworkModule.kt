@@ -2,6 +2,7 @@ package ru.vsu.educational_weather_app.di
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializer
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -9,6 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.vsu.educational_weather_app.BASE_URL
 import ru.vsu.educational_weather_app.data.interceptor.TokenInterceptor
 import ru.vsu.educational_weather_app.features.weather.data.WeatherService
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 fun provideHttpClient(): OkHttpClient = OkHttpClient
@@ -19,7 +22,13 @@ fun provideHttpClient(): OkHttpClient = OkHttpClient
     .build()
 
 fun provideConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(
-    GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+    GsonBuilder()
+        .registerTypeAdapter(LocalDateTime::class.java, JsonDeserializer { json, _, _ ->
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            LocalDateTime.parse(json.asString, formatter)
+        })
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create()
 )
 
 fun provideRetrofit(

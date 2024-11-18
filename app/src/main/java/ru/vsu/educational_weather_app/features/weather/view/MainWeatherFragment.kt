@@ -12,6 +12,9 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.vsu.educational_weather_app.R
 import ru.vsu.educational_weather_app.databinding.FragmentMainWeatherBinding
+import ru.vsu.educational_weather_app.features.cities.view.CitiesFragment
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class MainWeatherFragment : Fragment() {
     private lateinit var binding: FragmentMainWeatherBinding
@@ -24,6 +27,7 @@ class MainWeatherFragment : Fragment() {
     private lateinit var dateTextView: TextView
     private lateinit var weatherImage: ImageView
     private lateinit var menuButton: ImageButton
+    private lateinit var searchButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,19 +42,28 @@ class MainWeatherFragment : Fragment() {
         weatherImage = binding.fragmentMainWeatherRowImage
         menuButton = binding.fragmentMainWeatherHeaderMenu
         dateTextView = binding.fragmentMainWeatherTitleDate
+        searchButton = binding.fragmentMainWeatherHeaderSearch
 
         menuButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainWeatherFragment_to_settingsFragment)
+        }
+
+        searchButton.setOnClickListener {
+            val bottomSheet = CitiesFragment()
+            bottomSheet.show(childFragmentManager, bottomSheet.tag)
         }
 
         vm.cityState.observe(viewLifecycleOwner) {
             cityTextView.text = it
         }
 
+        val outputFormatter = DateTimeFormatter.ofPattern("EEE, MMM dd", Locale.forLanguageTag("RU"))
+
         vm.weatherState.observe(viewLifecycleOwner) {
             temperatureTextView.text = it?.current?.tempC?.toInt().toString()
             conditionTextView.text = it?.current?.condition?.text?.replace(' ', '\n')
-            dateTextView.text = it?.current?.lastUpdated
+
+            dateTextView.text = it?.current?.lastUpdated?.format(outputFormatter)
 
             when (it?.current?.condition?.code) {
                 1000 -> {

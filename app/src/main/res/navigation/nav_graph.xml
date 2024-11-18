@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/mainWeatherFragment"
         android:name="ru.vsu.educational_weather_app.features.weather.view.MainWeatherFragment"
-        android:label="fragment_main_weather"
-        tools:layout="@layout/fragment_main_weather" >
+        tools:layout="@layout/fragment_main_weather">
         <action
             android:id="@+id/action_mainWeatherFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"

@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.EducationalWeatherApp" parent="Base.Theme.EducationalWeatherApp" />
+    <style name="Theme.EducationalWeatherApp" parent="Base.Theme.EducationalWeatherApp" >
+        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">#ffca28</item>
+    </style>
 </resources>

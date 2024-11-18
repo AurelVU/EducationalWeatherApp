@@ -1,5 +1,7 @@
 package ru.vsu.educational_weather_app.features.weather.models
 
+import java.time.LocalDateTime
+
 data class Current(
     val cloud: Int,
     val condition: Condition,
@@ -13,7 +15,7 @@ data class Current(
     val heatindexF: Double,
     val humidity: Int,
     val isDay: Int,
-    val lastUpdated: String,
+    val lastUpdated: LocalDateTime,
     val lastUpdatedEpoch: Int,
     val precipIn: Int,
     val precipMm: Int,
