@@ -12,18 +12,24 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.vsu.educational_weather_app.R
+import ru.vsu.educational_weather_app.databinding.FragmentMainWeatherBinding
+import ru.vsu.educational_weather_app.databinding.FragmentSettingsBinding
 import ru.vsu.educational_weather_app.features.weather.view.MainWeatherVM
 
 class SettingsFragment : Fragment() {
     val vm: SettingsVM by viewModel()
 
+    private lateinit var binding: FragmentSettingsBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.setting__toolbar)
+        val view = binding.root
+
+        val toolbar = binding.settingToolbar
         toolbar.setupWithNavController(findNavController())
 
         return view

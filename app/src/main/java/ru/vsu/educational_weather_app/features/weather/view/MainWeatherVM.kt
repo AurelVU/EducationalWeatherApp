@@ -9,7 +9,10 @@ import ru.vsu.educational_weather_app.features.settings.domain.SettingsUseCase
 import ru.vsu.educational_weather_app.features.weather.data.WeatherRepository
 import ru.vsu.educational_weather_app.features.weather.models.Weather
 
-class MainWeatherVM(private val repository: WeatherRepository, private val settings: SettingsUseCase): ViewModel() {
+class MainWeatherVM(
+    private val repository: WeatherRepository,
+    private val settings: SettingsUseCase
+) : ViewModel() {
     private val _weatherState = MutableLiveData<Weather?>(null)
     val weatherState: LiveData<Weather?> = _weatherState
 
@@ -20,7 +23,7 @@ class MainWeatherVM(private val repository: WeatherRepository, private val setti
         viewModelScope.launch {
             _weatherState.value = repository.getCurrentWeather(
                 cityName = _cityState.value!!,
-                lang=settings.language.value!!,
+                lang = settings.language.value!!,
             )
         }
     }
@@ -29,7 +32,7 @@ class MainWeatherVM(private val repository: WeatherRepository, private val setti
         viewModelScope.launch {
             _weatherState.value = repository.getCurrentWeather(
                 cityName = _cityState.value!!,
-                lang=settings.language.value!!,
+                lang = settings.language.value!!,
             )
         }
     }

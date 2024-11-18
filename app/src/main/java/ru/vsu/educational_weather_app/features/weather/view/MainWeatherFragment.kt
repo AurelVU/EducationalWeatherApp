@@ -8,15 +8,14 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.vsu.educational_weather_app.R
+import ru.vsu.educational_weather_app.databinding.FragmentMainWeatherBinding
 
 class MainWeatherFragment : Fragment() {
+    private lateinit var binding: FragmentMainWeatherBinding
+
     private val vm: MainWeatherVM by viewModel()
 
     private lateinit var cityTextView: TextView
@@ -29,56 +28,47 @@ class MainWeatherFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_main_weather, container, false)
+    ): View {
+        binding = FragmentMainWeatherBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        cityTextView = view.findViewById(R.id.fragment_main_weather__title_city)
-        temperatureTextView = view.findViewById(R.id.fragment_main_weather__row_temperature)
-        conditionTextView = view.findViewById(R.id.fragment_main_weather__row_text_weather)
-        weatherImage = view.findViewById(R.id.fragment_main_weather__row_image)
-        menuButton = view.findViewById(R.id.fragment_main_weather__header_menu)
-        dateTextView = view.findViewById(R.id.fragment_main_weather__title_date)
+        cityTextView = binding.fragmentMainWeatherTitleCity
+        temperatureTextView = binding.fragmentMainWeatherRowTemperature
+        conditionTextView = binding.fragmentMainWeatherRowTextWeather
+        weatherImage = binding.fragmentMainWeatherRowImage
+        menuButton = binding.fragmentMainWeatherHeaderMenu
+        dateTextView = binding.fragmentMainWeatherTitleDate
 
         menuButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainWeatherFragment_to_settingsFragment)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    vm.cityState.collect {
-                        cityTextView.text = it
-                    }
+        vm.cityState.observe(viewLifecycleOwner) {
+            cityTextView.text = it
+        }
+
+        vm.weatherState.observe(viewLifecycleOwner) {
+            temperatureTextView.text = it?.current?.tempC?.toInt().toString()
+            conditionTextView.text = it?.current?.condition?.text?.replace(' ', '\n')
+            dateTextView.text = it?.current?.lastUpdated
+
+            when (it?.current?.condition?.code) {
+                1000 -> {
+                    weatherImage.setImageResource(R.drawable.sunny)
                 }
-
-                launch {
-                    vm.weatherState.collect {
-                        temperatureTextView.text = it?.current?.tempC?.toInt().toString()
-                        conditionTextView.text = it?.current?.condition?.text?.replace(' ', '\n')
-                        dateTextView.text = it?.current?.lastUpdated
-
-                        when (it?.current?.condition?.code) {
-                            1000 -> {
-                                weatherImage.setImageResource(R.drawable.sunny)
-                            }
-                            1001 -> {
-                                weatherImage.setImageResource(R.drawable.cloud)
-                            }
-                            1002 -> {
-                                weatherImage.setImageResource(R.drawable.cloud_with_sun)
-                            }
-                            1003 -> {
-                                weatherImage.setImageResource(R.drawable.cloud_with_sun_and_rain)
-                            }
-                        }
-                    }
+                1001 -> {
+                    weatherImage.setImageResource(R.drawable.cloud)
                 }
-
-                launch {
-                    vm.updateWeather()
+                1002 -> {
+                    weatherImage.setImageResource(R.drawable.cloud_with_sun)
+                }
+                1003 -> {
+                    weatherImage.setImageResource(R.drawable.cloud_with_sun_and_rain)
                 }
             }
         }
+
+        vm.updateWeather()
         return view
     }
 }
